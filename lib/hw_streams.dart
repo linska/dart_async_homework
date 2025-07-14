@@ -44,16 +44,17 @@ void task07() async {
 
 void task08() async {
   final controller = StreamController<String>();
-  controller.add('Hello');
-  controller.add('World');
-  controller.add('Dart');
   controller.stream.listen(
     (e) {
-      print(e);
+      print('controller.stream.listen: $e');
     },
     onDone: () {
       print('Стрім завершено');
     },
   );
+  final List<String> list = ['Hello', 'World', 'Dart'];
+  for (var l in list) {
+    controller.add(l);
+  }
   controller.close();
 }
