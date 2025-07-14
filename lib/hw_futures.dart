@@ -1,14 +1,18 @@
-void main() async {
-  final String name = await fetchName();
-  printName(name);
-  final String age = await fetchAge();
-  printAge(age);
+void main() {
+  task01();
+  task02();
+  task03();
 }
 
 // Task 1: Асинхронне отримання імені
 // Створіть метод Future<String> fetchName(), який імітує асинхронну операцію.
 // Цей метод повинен повертати ваше ім'я через 2 секунди (використайте Future.delayed та async/await).
 // Виведіть результат у консоль у форматі: "Мене звати [результат виконання асинхронної операції]".
+
+void task01() async {
+  final String name = await fetchName();
+  printName(name);
+}
 
 Future<String> fetchName() async {
   final name =
@@ -26,6 +30,11 @@ void printName(String name) {
 // Виведіть результат у консоль у форматі: "Мені [ваш вік] років".
 // Реалізуйте логіку, щоб слово "рік" змінювалося відповідно до значення віку (наприклад: 21 рік, 22 роки, 25 років).
 
+void task02() async {
+  final String age = await fetchAge();
+  printAge(age);
+}
+
 Future<String> fetchAge() async {
   final age =
       await Future.delayed(const Duration(milliseconds: 1500), () => '25');
@@ -40,4 +49,21 @@ void printAge(String age) {
     _ => 'років'
   };
   print('Мені $age $years');
+}
+
+// Task 3: Послідовне виконання Future
+// Виконайте методи fetchName() та fetchAge() послідовно.
+// Виміряйте та виведіть час виконання обох методів.
+
+void task03() async {
+  final stopwatch = Stopwatch();
+  stopwatch.start();
+  print('Старт виконання');
+  // await fetchName().then((v) async {
+  //   await fetchAge();
+  // });
+  await fetchName();
+  await fetchAge();
+  print('Час при послідовному виконанні: ${stopwatch.elapsedMilliseconds}');
+  stopwatch.stop();
 }
