@@ -2,6 +2,7 @@ void main() {
   task01();
   task02();
   task03();
+  task04();
 }
 
 // Task 1: Асинхронне отримання імені
@@ -58,12 +59,25 @@ void printAge(String age) {
 void task03() async {
   final stopwatch = Stopwatch();
   stopwatch.start();
-  print('Старт виконання');
+  print('Старт послідовного виконання');
   // await fetchName().then((v) async {
   //   await fetchAge();
   // });
   await fetchName();
   await fetchAge();
   print('Час при послідовному виконанні: ${stopwatch.elapsedMilliseconds}');
+  stopwatch.stop();
+}
+
+// Task 4: Паралельне виконання Future (Future.wait)
+// Виконайте методи fetchName() та fetchAge() паралельно за допомогою Future.wait.
+// Виміряйте та виведіть час виконання.
+
+void task04() async {
+  final stopwatch = Stopwatch();
+  stopwatch.start();
+  print('Старт паралельного виконання');
+  await Future.wait([fetchName(), fetchAge()]);
+  print('Час при паралельному виконанні: ${stopwatch.elapsedMilliseconds}');
   stopwatch.stop();
 }
