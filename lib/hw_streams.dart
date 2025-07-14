@@ -2,6 +2,7 @@ import 'dart:io';
 
 void main() {
   task06();
+  task07();
 }
 
 // Task 6: Стрім з чисел (fromIterable)
@@ -10,14 +11,25 @@ void main() {
 // Виведіть кожне значення з цього ж стріму, використовуючи метод listen.
 
 void task06() async {
-  final List<int> numbers = List.generate(10, (i) => i + 1);
+  final List<int> numbers = List.generate(5, (i) => i + 1);
   final Stream<int> numbersStream = Stream.fromIterable(numbers);
-  stdout.write('await for: ');
   await for (var item in numbersStream) {
-    stdout.write('$item, ');
+    print('await for:  $item');
   }
-  stdout.write('\nlisten:    ');
   numbersStream.listen((event) {
-    stdout.write('$event, ');
+    print('listen:  $event');
+  });
+}
+
+// Task 7: Зворотний відлік зі стріму (periodic)
+// Створіть Stream<int> за допомогою Stream.periodic, який генерує числа з затримкою в 1 секунду.
+// Обмежте відлік до 10 чисел за допомогою методу take.
+// Виведіть кожне число у консоль у форматі: "1...", "2...", "3...", ... "10...".
+
+void task07() async {
+  final Stream<int> stream =
+      Stream.periodic(Duration(seconds: 1), (v) => v + 1).take(10);
+  stream.listen((e) {
+    print('... $e ...');
   });
 }
