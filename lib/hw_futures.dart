@@ -94,12 +94,10 @@ void task05() async {
 }
 
 Future<String> delayedCountdown(int seconds) async {
-  for (int i = 0; i <= seconds; i++) {
-    await Future.delayed(const Duration(seconds: 1));
+  for (int i = 0; i < seconds; i++) {
     final int countdown = seconds - i;
-    if (countdown > 0) {
-      print('... $countdown ...');
-    }
+    print('... $countdown ...');
+    await Future.delayed(const Duration(seconds: 1));
   }
   return 'Старт!';
 }
