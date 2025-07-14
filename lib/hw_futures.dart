@@ -1,6 +1,8 @@
 void main() async {
   final String name = await fetchName();
-  print('Мене звати $name');
+  printName(name);
+  final String age = await fetchAge();
+  printAge(age);
 }
 
 // Task 1: Асинхронне отримання імені
@@ -9,8 +11,33 @@ void main() async {
 // Виведіть результат у консоль у форматі: "Мене звати [результат виконання асинхронної операції]".
 
 Future<String> fetchName() async {
-  final name = await Future.delayed(const Duration(seconds: 2), () {
-    return 'SomeName';
-  });
+  final name =
+      await Future.delayed(const Duration(seconds: 2), () => 'SomeName');
   return name;
+}
+
+void printName(String name) {
+  print('Мене звати $name');
+}
+
+// Task 2: Асинхронне отримання віку
+// Створіть метод Future<String> fetchAge(), який імітує асинхронну операцію.
+// Цей метод повинен повертати рядок "25" через 1500 мілісекунд.
+// Виведіть результат у консоль у форматі: "Мені [ваш вік] років".
+// Реалізуйте логіку, щоб слово "рік" змінювалося відповідно до значення віку (наприклад: 21 рік, 22 роки, 25 років).
+
+Future<String> fetchAge() async {
+  final age =
+      await Future.delayed(const Duration(milliseconds: 1500), () => '25');
+  return age;
+}
+
+void printAge(String age) {
+  final String check = age.substring(age.length - 1);
+  final String years = switch (check) {
+    '1' => 'рік',
+    '2' || '3' || '4' => 'роки',
+    _ => 'років'
+  };
+  print('Мені $age $years');
 }
