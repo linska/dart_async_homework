@@ -1,8 +1,9 @@
 void main() {
-  task01();
-  task02();
-  task03();
-  task04();
+  // task01();
+  // task02();
+  // task03();
+  // task04();
+  task05();
 }
 
 // Task 1: Асинхронне отримання імені
@@ -80,4 +81,25 @@ void task04() async {
   await Future.wait([fetchName(), fetchAge()]);
   print('Час при паралельному виконанні: ${stopwatch.elapsedMilliseconds}');
   stopwatch.stop();
+}
+
+// Task 5: Зворотний відлік з затримкою
+// Напишіть функцію Future<String> delayedCountdown(int seconds), яка приймає кількість секунд.
+// Ця функція повинна щосекунди виводити у консоль відлік (наприклад: "3...", "2...", "1...").
+// В кінці відліку метод має повертати рядок "Старт!".
+
+void task05() async {
+  final message = await delayedCountdown(5);
+  print(message);
+}
+
+Future<String> delayedCountdown(int seconds) async {
+  for (int i = 0; i <= seconds; i++) {
+    await Future.delayed(const Duration(seconds: 1));
+    final int countdown = seconds - i;
+    if (countdown > 0) {
+      print('... $countdown ...');
+    }
+  }
+  return 'Старт!';
 }
